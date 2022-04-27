@@ -1,2 +1,11 @@
 server:
   port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wiki?characterEncoding=UTF8&useSSL=false&serverTimeZone=Asia/Shanghai
+    username: wiki
+    password: Su20000326++
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
