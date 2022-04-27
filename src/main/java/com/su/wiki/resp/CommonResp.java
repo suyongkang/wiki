@@ -1,8 +1,4 @@
 package com.su.wiki.resp;
-
-import org.springframework.stereotype.Repository;
-
-@Repository
 public class CommonResp<T> {
 
     /**
