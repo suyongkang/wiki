@@ -5,11 +5,10 @@ import com.su.wiki.domain.EbookExample;
 import com.su.wiki.mapper.EbookMapper;
 import com.su.wiki.req.EbookReq;
 import com.su.wiki.resp.EbookResp;
-import org.springframework.beans.BeanUtils;
+import com.su.wiki.utils.CopyUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,12 +23,18 @@ public class EbookService {
         criteria.andNameLike("%" + req.getName() + "%");
         List<Ebook> ebooks = ebookMapper.selectByExample(ebookExample);
 
-        List<EbookResp> ebookResps = new ArrayList<>();
-        for (Ebook ebook : ebooks) {
-            EbookResp ebookResp = new EbookResp();
-            BeanUtils.copyProperties(ebook,ebookResp);
-            ebookResps.add(ebookResp);
-        }
-        return ebookResps;
+//        List<EbookResp> ebookResps = new ArrayList<>();
+//        for (Ebook ebook : ebooks) {
+////            EbookResp ebookResp = new EbookResp();
+////            BeanUtils.copyProperties(ebook,ebookResp);
+//
+//            //单体对象复制
+//            EbookResp ebookResp = CopyUtil.copy(ebook, EbookResp.class);
+//            ebookResps.add(ebookResp);
+//        }
+
+        //列表复制
+        List<EbookResp> ebookResp = CopyUtil.copyList(ebooks, EbookResp.class);
+        return ebookResp;
     }
 }
