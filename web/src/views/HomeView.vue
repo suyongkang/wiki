@@ -44,7 +44,10 @@
       <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
       >
-        Content
+        <pre>
+          {{ ebooks }}
+          {{ ebooks2 }}
+        </pre>
       </a-layout-content>
     </a-layout>
 
@@ -52,16 +55,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent, ref, reactive, toRef} from 'vue';
 import axios from "axios";
 
 export default defineComponent({
   name: 'HomeView',
   setup(){
+    const ebooks = ref();
+    const ebooks1 = reactive({books : []});
     console.log("setup");
     axios.get("http://localhost:8888/ebook/list?name=Spring").then((response) => {
-      console.log(response);
-    })
+      ebooks.value = response.data.content;
+      ebooks1.books = response.data.content;
+    });
+
+    return{
+      ebooks,
+      ebooks2 : toRef(ebooks1, "books")
+    }
   }
 });
 </script>
