@@ -93,7 +93,7 @@ export default defineComponent({
     const ebooks1 = reactive({books : []});
     console.log("setup");
     onMounted(() => {
-      axios.get("http://localhost:8888/ebook/list?name=Spring").then((response) => {
+      axios.get("http://localhost:8888/ebook/list").then((response) => {
         ebooks.value = response.data.content;
         ebooks1.books = response.data.content;
       });
@@ -122,3 +122,13 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.ant-avatar{
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 8%;
+  margin: 5px 0;
+}
+</style>

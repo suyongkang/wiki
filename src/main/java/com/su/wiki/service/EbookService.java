@@ -1,5 +1,6 @@
 package com.su.wiki.service;
 
+import com.mysql.cj.util.StringUtils;
 import com.su.wiki.domain.Ebook;
 import com.su.wiki.domain.EbookExample;
 import com.su.wiki.mapper.EbookMapper;
@@ -20,7 +21,10 @@ public class EbookService {
     public List<EbookResp> list(EbookReq req){
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
-        criteria.andNameLike("%" + req.getName() + "%");
+        if (!StringUtils.isNullOrEmpty(req.getName())){
+            criteria.andNameLike("%" + req.getName() + "%");
+        }
+
         List<Ebook> ebooks = ebookMapper.selectByExample(ebookExample);
 
 //        List<EbookResp> ebookResps = new ArrayList<>();
