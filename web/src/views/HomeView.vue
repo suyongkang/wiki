@@ -83,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, reactive, toRef} from 'vue';
+import {defineComponent, ref, reactive, toRef, onMounted} from 'vue';
 import axios from "axios";
 
 const listData: Record<string, string>[] = [];
@@ -106,10 +106,13 @@ export default defineComponent({
     const ebooks = ref();
     const ebooks1 = reactive({books : []});
     console.log("setup");
-    axios.get("http://localhost:8888/ebook/list?name=Spring").then((response) => {
-      ebooks.value = response.data.content;
-      ebooks1.books = response.data.content;
+    onMounted(() => {
+      axios.get("http://localhost:8888/ebook/list?name=Spring").then((response) => {
+        ebooks.value = response.data.content;
+        ebooks1.books = response.data.content;
+      });
     });
+
 
     const pagination = {
       onChange: (page: number) => {
